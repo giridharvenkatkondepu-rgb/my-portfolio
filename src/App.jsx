@@ -1,95 +1,112 @@
 import { useState, useEffect, useRef } from "react";
 
 const skills = [
-  { cat: "Languages", title: "Programming", tags: ["Java", "SQL", "JavaScript", "Python"],
-    detail: "Java is my primary language — 5+ years of production experience in enterprise backends, APIs, and batch systems." },
-  { cat: "Frameworks", title: "Spring Ecosystem", tags: ["Spring Boot", "Spring MVC", "Spring Security", "Spring Batch", "Hibernate", "JPA"],
-    detail: "Deep expertise across the Spring ecosystem — from secure REST APIs to batch jobs over 100+ GB healthcare datasets." },
-  { cat: "Messaging", title: "Event Streaming", tags: ["Apache Kafka", "RESTful APIs", "Feign Client", "Swagger / OpenAPI"],
-    detail: "Built Kafka event-driven pipelines processing millions of events daily, achieving a 40% reduction in system latency." },
-  { cat: "Databases", title: "Data Storage", tags: ["MySQL", "PostgreSQL", "Oracle", "MongoDB", "Redis"],
-    detail: "Proficient across relational and NoSQL databases. Leveraged Redis caching to cut API response times by ~30%." },
-  { cat: "Cloud", title: "AWS & DevOps", tags: ["EC2", "S3", "RDS", "Lambda", "ECS", "Fargate", "Docker", "Kubernetes", "Terraform"],
-    detail: "Deployed auto-scaling microservices on AWS ECS maintaining 99.9% uptime under peak production loads." },
-  { cat: "Observability", title: "Monitoring", tags: ["ELK Stack", "Prometheus", "Grafana", "Splunk", "Dynatrace"],
-    detail: "Built centralised observability pipelines that dramatically reduced incident detection and mean time to resolution." },
-  { cat: "CI/CD & QA", title: "Build & Testing", tags: ["Jenkins", "GitHub Actions", "Maven", "Gradle", "JUnit 5", "Mockito", "TestNG"],
-    detail: "End-to-end CI/CD ownership from commit to production. Strong testing culture with unit and integration coverage." },
-  { cat: "Security", title: "Auth & Compliance", tags: ["OAuth2", "JWT", "MFA", "HIPAA"],
-    detail: "Implemented OAuth2 + JWT across HIPAA-compliant healthcare systems and MFA for financial applications." },
+  {
+    cat: "Languages", title: "Programming", tags: ["Java", "Python", "JavaScript", "TypeScript", "SQL", "Shell Scripting"],
+    detail: "Java is my primary language — 5+ years of production experience at Mastercard, Ericsson, and BestBuy. Also proficient in Python for scripting and automation.",
+  },
+  {
+    cat: "Frameworks", title: "Spring & Web", tags: ["Spring Boot", "Spring MVC", "Spring Cloud", "Hibernate", "React.js", "Node.js"],
+    detail: "Deep expertise across the Spring ecosystem — from REST and GraphQL APIs to cloud-native microservices. Also built React.js front-end components for e-commerce platforms.",
+  },
+  {
+    cat: "Cloud", title: "AWS, Azure & GCP", tags: ["AWS EKS", "EC2", "S3", "RDS", "Lambda", "CloudFormation", "Azure", "GCP"],
+    detail: "Extensive AWS experience deploying containerised microservices at enterprise scale. Built IaC with Terraform and AWS CloudFormation for automated cloud provisioning.",
+  },
+  {
+    cat: "Containers", title: "Containerisation & Orchestration", tags: ["Docker", "Kubernetes", "AWS EKS", "Helm", "OpenShift"],
+    detail: "Containerised and orchestrated microservices on Kubernetes/EKS at Mastercard for enterprise-scale payment processing deployments.",
+  },
+  {
+    cat: "Messaging", title: "Event Streaming", tags: ["Apache Kafka", "RabbitMQ", "AWS SQS", "AWS SNS", "GraphQL", "gRPC"],
+    detail: "Built Kafka event-driven architectures for real-time payment processing and async notification delivery handling 15M+ daily transactions.",
+  },
+  {
+    cat: "Databases", title: "Data Storage", tags: ["PostgreSQL", "MySQL", "Oracle", "MongoDB", "Redis", "DynamoDB", "Cassandra"],
+    detail: "Proficient across relational and NoSQL databases. Implemented Redis distributed caching to reduce DB load and improve API response times.",
+  },
+  {
+    cat: "DevOps & CI/CD", title: "Build & Delivery", tags: ["Jenkins", "GitHub Actions", "AWS CodePipeline", "Terraform", "Git", "Bitbucket"],
+    detail: "End-to-end CI/CD ownership from commit to production across multi-environment enterprise setups. Infrastructure-as-code via Terraform and CloudFormation.",
+  },
+  {
+    cat: "Security", title: "Auth & Compliance", tags: ["OAuth 2.0", "OpenID Connect", "JWT", "PCI-DSS"],
+    detail: "Implemented OAuth 2.0 + OpenID Connect for Mastercard payment APIs. Collaborated with security teams on PCI-DSS controls including encryption, tokenisation, and key management.",
+  },
+  {
+    cat: "Testing", title: "Quality Engineering", tags: ["JUnit", "Mockito", "Selenium", "Pact", "TestNG", "Pytest"],
+    detail: "High test coverage culture with unit, integration, and contract tests. Used Pact for consumer-driven contract testing across distributed microservices.",
+  },
+  {
+    cat: "Observability", title: "Monitoring", tags: ["ELK Stack", "Elasticsearch", "Logstash", "Kibana"],
+    detail: "Built centralised observability pipelines with ELK Stack at Ericsson for distributed network management systems, improving incident detection and resolution.",
+  },
 ];
 
 const experiences = [
   {
-    company: "HCA Healthcare", role: "Senior Java Developer", period: "Feb 2024 – Present",
-    detail: "Leading backend engineering for one of the largest US healthcare systems, with direct impact on patient outcomes through reliable, scalable technology.",
+    company: "Mastercard",
+    role: "Senior Software Engineer",
+    period: "Feb 2024 – Present",
+    location: "USA",
+    detail: "Leading backend engineering for Mastercard's payment processing and fraud detection platforms — building cloud-native systems that handle billions of dollars in transactions daily.",
     bullets: [
-      { text: "Led Spring Boot microservices for patient scheduling & healthcare records serving ", highlight: "10K+ daily users", suffix: "." },
-      { text: "Owned REST APIs handling ", highlight: "50K+ healthcare transactions/day", suffix: " in a HIPAA-compliant environment." },
-      { text: "Built Kafka event-driven pipelines processing millions of events daily — reduced latency by ", highlight: "~40%", suffix: "." },
-      { text: "Optimised APIs with Redis caching & async processing — cut response times by ", highlight: "~30%", suffix: "." },
-      { text: "Deployed microservices on AWS ECS with auto-scaling, maintaining ", highlight: "99.9% uptime", suffix: "." },
-      { text: "Implemented OAuth2 + JWT auth; designed Spring Batch jobs processing ", highlight: "100+ GB", suffix: " healthcare datasets." },
+      { text: "Designed cloud-native microservices for payment processing & fraud detection using ", highlight: "Java 17 & Spring Boot", suffix: "." },
+      { text: "Engineered high-performance transaction services handling over ", highlight: "15M+ payment transactions/day", suffix: " with sub-100ms SLA." },
+      { text: "Built RESTful & GraphQL APIs for payment authorisation, tokenisation, and merchant integration.", highlight: "", suffix: "" },
+      { text: "Implemented event-driven architecture with Apache Kafka for real-time payment event processing.", highlight: "", suffix: "" },
+      { text: "Containerised microservices with Docker & orchestrated on ", highlight: "Kubernetes (AWS EKS)", suffix: " at enterprise scale." },
+      { text: "Implemented OAuth 2.0 + OpenID Connect & ", highlight: "PCI-DSS compliance", suffix: " controls including encryption and tokenisation." },
+      { text: "Built IaC using Terraform & AWS CloudFormation for automated cloud provisioning.", highlight: "", suffix: "" },
+      { text: "Optimised JVM performance and Spring Boot configs for improved throughput and reduced memory footprint.", highlight: "", suffix: "" },
     ],
   },
   {
-    company: "ICICI Bank", role: "Java Developer", period: "Dec 2021 – Aug 2023",
-    detail: "Modernised core banking infrastructure at one of India's leading private banks — from monolith to microservices, and from batch to real-time fraud detection.",
+    company: "Ericsson",
+    role: "Software Engineer",
+    period: "Jul 2022 – Aug 2023",
+    location: "Hyderabad, India",
+    detail: "Built and maintained microservices for Ericsson's network management and 5G telecommunications infrastructure platforms.",
     bullets: [
-      { text: "Led backend for credit card & payment systems across ", highlight: "millions of users", suffix: "." },
-      { text: "Built Kafka real-time pipelines processing ", highlight: "100K+ transactions/day", suffix: "; improved fraud detection by ", highlight2: "~35%", suffix2: "." },
-      { text: "Owned full migration of monolithic applications to microservices architecture.", highlight: "", suffix: "" },
-      { text: "Designed OAuth2 + MFA authentication for sensitive financial applications.", highlight: "", suffix: "" },
-      { text: "Automated billing & interest batch workflows, reducing manual effort and errors.", highlight: "", suffix: "" },
-      { text: "Maintained ", highlight: "~99.8% uptime", suffix: " across cloud-based production environments." },
+      { text: "Developed microservices for network configuration, performance monitoring, and fault management integrated with ", highlight: "5G NMS", suffix: "." },
+      { text: "Implemented event-driven communication using Apache Kafka for decoupled service integration.", highlight: "", suffix: "" },
+      { text: "Built Python scripting tools for network data extraction, transformation, and automated reporting.", highlight: "", suffix: "" },
+      { text: "Implemented observability using ", highlight: "ELK Stack", suffix: " for distributed system monitoring." },
+      { text: "Collaborated with telecom engineers to integrate software with OSS/BSS platforms and 5G NMS.", highlight: "", suffix: "" },
     ],
   },
   {
-    company: "Tata Consultancy Services", role: "Java Developer", period: "Dec 2020 – Dec 2021",
-    detail: "Built enterprise backend systems for Cisco's network monitoring ecosystem, establishing core skills in performance optimisation and CI/CD.",
+    company: "BestBuy",
+    role: "Junior Software Engineer",
+    period: "Jun 2020 – Jul 2022",
+    location: "Hyderabad, India",
+    detail: "Developed Java Spring web application features for e-commerce platforms including product catalog, inventory, and order processing services.",
     bullets: [
-      { text: "Developed REST APIs for network monitoring platforms within the Cisco ecosystem.", highlight: "", suffix: "" },
-      { text: "Processed real-time telemetry data streams using Kafka for faster alerting.", highlight: "", suffix: "" },
-      { text: "Optimised DB queries & implemented multithreading — reduced response time by ", highlight: "~30%", suffix: "." },
-      { text: "Contributed to CI/CD automation via Jenkins, improving deployment speed and reliability.", highlight: "", suffix: "" },
+      { text: "Built RESTful APIs for product search, pricing, and order management supporting ", highlight: "online retail & in-store ops", suffix: "." },
+      { text: "Implemented React.js front-end components for customer-facing pages and internal inventory dashboards.", highlight: "", suffix: "" },
+      { text: "Designed relational DB schemas and complex SQL queries in Oracle and MySQL.", highlight: "", suffix: "" },
+      { text: "Developed Python automation scripts for data migration and product catalog synchronisation.", highlight: "", suffix: "" },
+      { text: "Provided on-call production support during peak retail periods including ", highlight: "holiday shopping seasons", suffix: "." },
     ],
   },
 ];
 
 const achievements = [
-  { icon: "⚡", val: "40%",    desc: "Latency cut via Kafka pipelines at HCA Healthcare" },
-  { icon: "🚀", val: "30%",    desc: "API response time improved with Redis caching" },
-  { icon: "🛡️", val: "99.9%", desc: "Uptime on AWS ECS production systems" },
-  { icon: "🏦", val: "35%",    desc: "Faster fraud detection at ICICI Bank" },
-  { icon: "📦", val: "100GB+", desc: "Healthcare datasets via Spring Batch" },
-  { icon: "🔥", val: "50K+",   desc: "Healthcare API transactions per day" },
-  { icon: "💳", val: "100K+",  desc: "Financial transactions processed daily" },
-  { icon: "👥", val: "10K+",   desc: "Daily users across distributed microservices" },
+  { icon: "⚡", val: "15M+", desc: "Payment transactions processed daily at Mastercard" },
+  { icon: "🚀", val: "<100ms", desc: "Latency SLA on transaction processing services" },
+  { icon: "☁️", val: "3 Clouds", desc: "AWS, Azure, and GCP production experience" },
+  { icon: "🛡️", val: "PCI-DSS", desc: "Payment card industry security compliance" },
+  { icon: "📦", val: "5+", desc: "Years of production Java backend experience" },
+  { icon: "🔥", val: "Kafka", desc: "Real-time event-driven payment pipelines" },
+  { icon: "🤝", val: "K8s", desc: "Kubernetes microservices at enterprise scale" },
+  { icon: "🧪", val: "Pact", desc: "Contract testing across distributed services" },
 ];
 
 const certs = [
-  { icon: "🔧", bg: "#e5f4fd", name: "ServiceNow Certified System Administrator (CSA)",           detail: "Validated platform administration and configuration expertise." },
-  { icon: "☁️", bg: "#fff4e5", name: "AWS Academy Cloud Foundations",                             detail: "Foundational knowledge across core AWS services and cloud concepts." },
-  { icon: "🏛️", bg: "#fdecea", name: "Oracle Cloud Infrastructure Developer Certified Associate",  detail: "Certified in building and deploying apps on Oracle Cloud Infrastructure." },
-  { icon: "🌐", bg: "#e5f5f3", name: "Aviatrix Certified Multi-Cloud Networking Associate",        detail: "Multi-cloud networking expertise across AWS, Azure, and GCP." },
-  { icon: "📊", bg: "#e8f0fe", name: "Google Cloud Certified Professional Data Engineer",          detail: "Professional-level GCP data pipeline design and implementation." },
-  { icon: "🤖", bg: "#f3e8ff", name: "Automation Anywhere Certified Essentials RPA Professional", detail: "Certified in RPA fundamentals using Automation Anywhere." },
+  { icon: "☁️", bg: "#fff4e5", name: "AWS Certified Developer – Associate", detail: "Certified in building and deploying applications using core AWS services at scale." },
+  { icon: "⎈", bg: "#e5f4fd", name: "Certified Kubernetes Application Developer (CKAD)", detail: "Validated expertise in designing, building, and deploying containerised applications using Kubernetes." },
+  { icon: "☕", bg: "#fdecea", name: "Oracle Certified Professional: Java SE 11 Developer", detail: "Professional-level Java SE 11 certification validating deep language and platform expertise." },
 ];
-
-function useFadeIn() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.style.opacity = "1"; el.style.transform = "translateY(0)"; observer.unobserve(el); } },
-      { threshold: 0.08 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  return ref;
-}
 
 function Modal({ title, body, onClose }) {
   useEffect(() => {
@@ -115,7 +132,13 @@ function FadeCard({ children, style = {}, onClick }) {
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.style.opacity = "1"; el.style.transform = "translateY(0)"; observer.unobserve(el); } },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+          observer.unobserve(el);
+        }
+      },
       { threshold: 0.08 }
     );
     observer.observe(el);
@@ -177,29 +200,29 @@ export default function App() {
       <div style={styles.heroWrap}>
         <div style={styles.hero}>
           <div style={styles.heroLeft}>
-            <div style={styles.heroEyebrow}>Senior Java Developer</div>
+            <div style={styles.heroEyebrow}>Senior Software Engineer</div>
             <h1 style={styles.heroName}>Giridhar Venkat<br />Kondepu</h1>
             <p style={styles.heroRole}>
-              Backend Engineer &nbsp;·&nbsp; <strong style={{ color: "#1e2d40", fontWeight: 600 }}>Healthcare & Fintech</strong> &nbsp;·&nbsp; Cloud
+              Backend Engineer &nbsp;·&nbsp; <strong style={{ color: "#1e2d40", fontWeight: 600 }}>Fintech & Telecom</strong> &nbsp;·&nbsp; Cloud-Native
             </p>
             <p style={styles.heroBio}>
-              5+ years building production-grade backend systems that handle millions of transactions daily.
-              Specialising in Java, Spring Boot, Kafka, and AWS — with deep experience in HIPAA-compliant
-              healthcare platforms and high-volume financial infrastructure.
+              5+ years building production-grade backend systems handling millions of transactions daily.
+              Currently at Mastercard — specialising in Java, Spring Boot, Kafka, Kubernetes, and AWS
+              with deep expertise in payment processing, PCI-DSS compliance, and distributed systems.
             </p>
             <div style={styles.heroActions}>
-              <a href="mailto:giridharvenkatkondepu@gmail.com" style={styles.btnDark}>✉ Email Me</a>
+              <a href="mailto:kondepuvenkat@gmail.com" style={styles.btnDark}>✉ Email Me</a>
               <a href="https://linkedin.com" target="_blank" rel="noreferrer" style={styles.btnGhost}>↗ LinkedIn</a>
-              <a href="tel:+14705305381" style={styles.btnGhost}>📞 (470) 530-5381</a>
+              <a href="tel:+17703983639" style={styles.btnGhost}>📞 (770) 398-3639</a>
             </div>
           </div>
 
           <div style={styles.heroStats}>
             {[
               { num: "5+", label: "Years Exp" },
-              { num: "50K+", label: "Txns / Day" },
-              { num: "40%", label: "Latency Cut" },
-              { num: "99.9%", label: "Uptime" },
+              { num: "15M+", label: "Txns / Day" },
+              { num: "<100ms", label: "Latency SLA" },
+              { num: "3", label: "Cloud Platforms" },
             ].map((s, i) => (
               <div key={i}>
                 {i > 0 && <div style={styles.statDiv} />}
@@ -250,8 +273,9 @@ export default function App() {
       <section id="certifications" style={styles.sectionSnow}>
         <div style={styles.wrapper}>
           <div style={styles.secLabel}>Education & Credentials</div>
-          <h2 style={styles.secTitle}>Certifications</h2>
-          <FadeCard style={styles.eduCard}>
+          <h2 style={styles.secTitle}>Education & Certifications</h2>
+
+          <FadeCard style={{ ...styles.eduCard, marginBottom: "1rem" }}>
             <div style={styles.eduIcon}>🎓</div>
             <div>
               <div style={styles.eduSchool}>Kennesaw State University</div>
@@ -259,6 +283,15 @@ export default function App() {
             </div>
             <div style={styles.eduPeriod}>Aug 2023 – Dec 2024</div>
           </FadeCard>
+          <FadeCard style={{ ...styles.eduCard, marginBottom: "2.5rem" }}>
+            <div style={styles.eduIcon}>🏛️</div>
+            <div>
+              <div style={styles.eduSchool}>KL University</div>
+              <div style={styles.eduDeg}>Bachelor of Technology in Computer Science and Engineering</div>
+            </div>
+            <div style={styles.eduPeriod}>2018 – 2022</div>
+          </FadeCard>
+
           <div style={styles.certsGrid}>
             {certs.map((c, i) => <CertCard key={i} cert={c} onClick={() => openModal(c.name, c.detail)} />)}
           </div>
@@ -271,17 +304,17 @@ export default function App() {
           <div style={{ ...styles.secLabel, justifyContent: "center", color: "#1a9e8f" }}>Get In Touch</div>
           <h2 style={{ ...styles.secTitle, color: "#ffffff", marginBottom: "0.9rem" }}>Let's Work Together</h2>
           <p style={styles.contactDesc}>
-            Open to Senior Backend, Tech Lead, and Cloud Architecture roles — particularly in healthcare,
-            fintech, or teams building high-throughput distributed systems.
+            Open to Senior Software Engineer, Tech Lead, and Cloud Architecture roles — particularly in fintech,
+            payments, telecom, or teams building high-throughput distributed systems.
           </p>
           <div style={styles.contactLinks}>
-            <a href="mailto:giridharvenkatkondepu@gmail.com" style={styles.btnWhite}>✉ Send an Email</a>
-            <a href="tel:+14705305381" style={styles.btnOutlineW}>📞 (470) 530-5381</a>
+            <a href="mailto:kondepuvenkat@gmail.com" style={styles.btnWhite}>✉ Send an Email</a>
+            <a href="tel:+17703983639" style={styles.btnOutlineW}>📞 (770) 398-3639</a>
           </div>
         </div>
       </section>
 
-      <footer style={styles.footer}>© 2025 Giridhar Venkat Kondepu — Senior Java Developer</footer>
+      <footer style={styles.footer}>© 2025 Giridhar Venkat Kondepu — Senior Software Engineer</footer>
     </div>
   );
 }
@@ -313,6 +346,7 @@ function ExpCard({ exp, onClick }) {
           <div>
             <div style={styles.expCompany}>{exp.company}</div>
             <div style={styles.expRole}>{exp.role}</div>
+            <div style={styles.expLocation}>{exp.location}</div>
           </div>
           <span style={styles.expPeriod}>{exp.period}</span>
         </div>
@@ -386,7 +420,7 @@ const styles = {
   secTitle: { fontFamily: "'Playfair Display', serif", fontSize: "2.1rem", fontWeight: 700, color: "#0f1b2d", marginBottom: "2.5rem", lineHeight: 1.15 },
 
   skillsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(238px, 1fr))", gap: "1rem" },
-  skillCard: { background: "#f5f8fb", border: "1px solid #dde8f0", borderRadius: "12px", padding: "1.35rem 1.5rem", cursor: "pointer", transition: "all 0.22s" },
+  skillCard: { background: "#f5f8fb", border: "1px solid #dde8f0", borderRadius: "12px", padding: "1.35rem 1.5rem", cursor: "pointer", transition: "all 0.22s", height: "100%" },
   skillCardHover: { borderColor: "#1a9e8f", boxShadow: "0 4px 18px rgba(15,27,45,0.10)", transform: "translateY(-3px)", background: "#ffffff" },
   skillCat: { fontSize: "0.63rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1a9e8f", marginBottom: "0.35rem" },
   skillTitle: { fontSize: "0.93rem", fontWeight: 700, color: "#0f1b2d", marginBottom: "0.85rem" },
@@ -398,6 +432,7 @@ const styles = {
   expTop: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem", flexWrap: "wrap", marginBottom: "1.1rem" },
   expCompany: { fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontWeight: 700, color: "#0f1b2d" },
   expRole: { fontSize: "0.78rem", fontWeight: 500, color: "#1a9e8f", marginTop: "0.15rem" },
+  expLocation: { fontSize: "0.7rem", color: "#8fa3b8", marginTop: "0.1rem" },
   expPeriod: { fontSize: "0.7rem", fontWeight: 500, color: "#8fa3b8", background: "#f5f8fb", border: "1px solid #dde8f0", padding: "0.28rem 0.75rem", borderRadius: "100px", whiteSpace: "nowrap", alignSelf: "flex-start" },
   bulletList: { listStyle: "none", display: "flex", flexDirection: "column", gap: "0.4rem" },
   bullet: { fontSize: "0.82rem", color: "#3d566e", paddingLeft: "1.05rem", position: "relative", lineHeight: 1.65, display: "flex", gap: "0.3rem" },
@@ -411,7 +446,7 @@ const styles = {
   achVal: { fontFamily: "'Playfair Display', serif", fontSize: "1.6rem", fontWeight: 700, color: "#0f1b2d", display: "block", lineHeight: 1 },
   achDesc: { fontSize: "0.71rem", color: "#3d566e", marginTop: "0.4rem", lineHeight: 1.5 },
 
-  eduCard: { background: "#ffffff", border: "1px solid #dde8f0", borderRadius: "12px", padding: "1.6rem 1.8rem", display: "flex", alignItems: "center", gap: "1.4rem", marginBottom: "2.5rem" },
+  eduCard: { background: "#ffffff", border: "1px solid #dde8f0", borderRadius: "12px", padding: "1.6rem 1.8rem", display: "flex", alignItems: "center", gap: "1.4rem" },
   eduIcon: { width: "48px", height: "48px", borderRadius: "10px", background: "#e5f5f3", border: "1px solid rgba(26,158,143,0.2)", display: "grid", placeItems: "center", fontSize: "1.4rem", flexShrink: 0 },
   eduSchool: { fontFamily: "'Playfair Display', serif", fontSize: "0.97rem", fontWeight: 700, color: "#0f1b2d" },
   eduDeg: { fontSize: "0.78rem", color: "#3d566e", marginTop: "0.15rem" },
